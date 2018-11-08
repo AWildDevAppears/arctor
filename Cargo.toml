@@ -1,0 +1,7 @@
+[package]
+name = "arctor"
+version = "0.1.0"
+authors = ["Josh Burgess <jburgess@whiteoctober.co.uk>"]
+
+[dependencies]
+clap = "2.26.0"
