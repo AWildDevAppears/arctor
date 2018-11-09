@@ -2,6 +2,9 @@ extern crate clap;
 
 use clap::{Arg, App};
 use std::ffi::OsStr;
+use std::path::Path;
+
+mod archiver;
 
 fn main() {
     let matches = App::new("Arctor")
@@ -17,14 +20,16 @@ fn main() {
             -t, --type==[FILE] 'Sets file type for archive'"
         )
         .get_matches();
-    let path = std::path::Path::new(matches.value_of("FILE").unwrap());
+    let path = Path::new(matches.value_of("FILE").unwrap());
     let file_type = matches.value_of("type").unwrap_or("");
 
     match file_type {
-        "zip" => println!("Zip not implemented yet"),
+        "zip" => handle_zip_archive(path),
+        "7zip" => handle_7zip_archive(path),
+        "7z" => handle_7zip_archive(path),
         _ => {
             match path.extension().and_then(OsStr::to_str) {
-                Some("rs") => println!("Rust!"),
+                Some("zip") => handle_zip_archive(path),
                 _ => println!("You forgot to specify this case!"),
             };
         }
@@ -33,3 +38,10 @@ fn main() {
     println!("{}", file_type);
 }
 
+fn handle_zip_archive(path: &Path) {
+    archiver::zip::extract(path);
+}
+
+fn handle_7zip_archive(path: &Path) {
+    println!("7Zip not implemented yet")
+}

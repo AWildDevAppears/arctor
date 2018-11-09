@@ -5,3 +5,4 @@ authors = ["Josh Burgess <jburgess@whiteoctober.co.uk>"]
 
 [dependencies]
 clap = "2.26.0"
+zip = "0.4"
