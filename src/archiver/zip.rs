@@ -43,5 +43,5 @@ pub fn extract(path: &Path) {
                 fs::set_permissions(&outpath, fs::Permissions::from_mode(mode)).unwrap();
             }
         }
-}
+    }
 }

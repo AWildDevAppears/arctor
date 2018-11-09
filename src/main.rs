@@ -27,6 +27,9 @@ fn main() {
         "zip" => handle_zip_archive(path),
         "7zip" => handle_7zip_archive(path),
         "7z" => handle_7zip_archive(path),
+        "tar" => handle_tar_archive(path),
+        "gz" => handle_tar_archive(path),
+        "gzip" => handle_tar_archive(path),
         _ => {
             match path.extension().and_then(OsStr::to_str) {
                 Some("zip") => handle_zip_archive(path),
@@ -42,6 +45,14 @@ fn handle_zip_archive(path: &Path) {
     archiver::zip::extract(path);
 }
 
+fn handle_tar_archive(path: &Path) {
+    match archiver::tar::extract(path) {
+        Ok(v) => v,
+        Err(err) => println!("Error: {:?}", err),
+    }
+}
+
 fn handle_7zip_archive(path: &Path) {
     println!("7Zip not implemented yet")
 }
+
